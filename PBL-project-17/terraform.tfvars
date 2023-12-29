@@ -28,3 +28,7 @@ ami = "ami-03951dc3553ee499f"
 keypair = "myFirstAWSkeyPair"
 
 account_no = 635977375707
+
+master-username = "emydevops"
+
+master-password = "proj17pbl"

@@ -1345,6 +1345,7 @@ resource "aws_efs_access_point" "tooling" {
 }
 
 ```
+![efs](./images/Screenshot%20from%202023-12-29%2020-26-39.png)
 
 #### Create [MySQL RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_MySQL.html) 
 
@@ -1384,6 +1385,9 @@ resource "aws_db_instance" "ACS-rds" {
 }
 
 ```
+
+![rds](./images/rds.png)
+
 Before applying, please note that we gave reference to some variables in our resources that have not been declared in the `variables.tf` file. Go through the entire code and spot these variables and declare them in the `variables.tf` file. 
 
 If you have done that well, your file should look like this one below.
@@ -1465,6 +1469,8 @@ variable "master-password" {
   description = "RDS master password"
 }
 ```
+![var](./images/variables.png)
+
 We are almost done but we need to update the last file which is `terraform.tfvars` file. In this file we are going to declare the values for the variables in our `varibales.tf` file.
 
 Open the `terraform.tfvars` file and add the code below:
@@ -1509,7 +1515,7 @@ tags = {
   Billing-Account = "1234567890"
 }
 ```
-
+![tfvar](./images/tfvar.png)
 
 At this point, you shall have pretty much all the infrastructure elements ready to be deployed automatically.
 Try to plan and apply your Terraform codes, explore the resources in AWS console and make sure you destroy them right away to avoid massive costs.
