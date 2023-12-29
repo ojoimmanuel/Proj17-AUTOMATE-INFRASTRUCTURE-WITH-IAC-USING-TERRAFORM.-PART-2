@@ -660,10 +660,9 @@ resource "aws_route53_record" "wordpress" {
     evaluate_target_health = true
   }
 }
-
+```
 ![acm](./images/acm.png)
 
-```
 
 #### 3. Create an external (Internet facing) [Application Load Balancer (ALB)](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/application-load-balancer-getting-started.html)  
 
@@ -740,7 +739,7 @@ resource "aws_lb_listener" "nginx-listner" {
 }
 
 ```
-
+![alb](./images/alb.png)
 
 Add the following outputs to `output.tf` to print them on screen: 
 ```
@@ -752,6 +751,7 @@ output "alb_target_group_arn" {
   value = aws_lb_target_group.nginx-tgt.arn
 }
 ```
+![output](./images/output.png)
 
 ---
 #### Create an Internal (Internal) [Application Load Balancer (ALB)](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-internal-load-balancers.html)  
@@ -788,6 +788,7 @@ resource "aws_lb" "ialb" {
   load_balancer_type = "application"
 }
 ```
+![ialb](./images/ialb.png)
 
 To inform our ALB where to route the traffic, we need to create a [`Target Group`](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-target-groups.html) to point to its targets:
 
@@ -832,6 +833,7 @@ resource "aws_lb_target_group" "tooling-tgt" {
 }
 
 ```
+![tg](./images/tg.png)
 
 Then, we will need to create a [`Listner`](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-listeners.html) for this target Group
 
@@ -872,6 +874,7 @@ resource "aws_lb_listener_rule" "tooling-listener" {
 }
 
 ```
+![lidtener2](./images/listener2.png)
 
 #### Create an [Auto Scaling Group (ASG)](https://docs.aws.amazon.com/autoscaling/ec2/userguide/AutoScalingGroup.html)
 
@@ -1063,6 +1066,7 @@ resource "aws_autoscaling_attachment" "asg_attachment_nginx" {
 }
 
  ```
+![asg-bastion](./images/asg-bastion.png)
 
 Create `asg-wordpress-tooling.tf` and paste the following code
 
@@ -1214,6 +1218,7 @@ resource "aws_autoscaling_attachment" "asg_attachment_tooling" {
   alb_target_group_arn   = aws_lb_target_group.tooling-tgt.arn
 }
 ```
+![WP-ASG](./images/wp-asg.png)
 
 ### Storage and Database
 
@@ -1258,7 +1263,7 @@ resource "aws_kms_alias" "alias" {
 }
 
 ```
-
+![kms](./images/kms.png)
 
 
 Let us create EFS and it's mount targets: Add the following code to `efs.tf`

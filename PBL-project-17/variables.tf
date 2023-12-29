@@ -42,3 +42,18 @@ variable "tags" {
     default = {}
 }
   
+variable "ami" {
+  type = string
+  description = "AMI for launch templates"
+}
+
+variable "keypair" {
+  type = string
+  description = "keypair for instance"
+}
+
+variable "account_no" {
+  type = number
+  description = "the account no"
+}
+
