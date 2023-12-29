@@ -158,6 +158,7 @@ resource "aws_nat_gateway" "nat" {
 }
 
 ```
+![eip](./images/eip.png)
 
 #### AWS routes
 
@@ -217,6 +218,7 @@ resource "aws_route_table_association" "public-subnets-assoc" {
 }
 
 ```
+![rtb](./images/rtb.png)
 
 Now if you run `terraform plan` and `terraform apply`, it will add the following resources to AWS in `multi-az` set up:
 
@@ -268,7 +270,7 @@ name = "ec2_instance_role"
   )
 }
 ```
- 
+ ![iamrole](./images/iamrole.png)
 
 In this code, we are creating `AssumeRole` with `AssumeRole policy`. It grants to an entity, in our case it is an EC2, permissions to assume the role. 
 
@@ -324,6 +326,7 @@ This is where, we will be attaching the policy which we created above, to the ro
         role =  aws_iam_role.ec2_instance_role.name
     }
 ```
+![instance-profile](./images/instanceprofile.png)
 
 We are pretty much done with the Identity and Management part for now, let us move on and create other resources required.
 
@@ -582,6 +585,7 @@ resource "aws_security_group_rule" "inbound-mysql-webserver" {
   security_group_id        = aws_security_group.datalayer-sg.id
 }
 ```
+![sg](./images/sg.png)
 
 **IMPORTANT NOTE:** We used the `aws_security_group_rule` to reference another security group in a security group.
 
@@ -656,6 +660,8 @@ resource "aws_route53_record" "wordpress" {
     evaluate_target_health = true
   }
 }
+
+![acm](./images/acm.png)
 
 ```
 
