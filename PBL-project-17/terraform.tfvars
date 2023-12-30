@@ -27,7 +27,7 @@ ami = "ami-03951dc3553ee499f"
 
 keypair = "myFirstAWSkeyPair"
 
-account_no = 635977375707
+account_no = 59773757
 
 master-username = "emydevops"
 
