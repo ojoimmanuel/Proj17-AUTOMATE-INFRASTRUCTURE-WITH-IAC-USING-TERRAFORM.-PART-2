@@ -24,7 +24,7 @@ resource "aws_autoscaling_notification" "emy_notifications" {
 
 
 resource "random_shuffle" "az_list" {
-  input        = data.aws_availability_zones.available.names
+  input = data.aws_availability_zones.available.names
 }
 
 
@@ -52,16 +52,16 @@ resource "aws_launch_template" "bastion-launch-template" {
   tag_specifications {
     resource_type = "instance"
 
-   tags = merge(
-    var.tags,
-    {
-      Name = format("%s-bastion-launch-template", var.name)
-    },
-  )
+    tags = merge(
+      var.tags,
+      {
+        Name = format("%s-bastion-launch-template", var.name)
+      },
+    )
   }
 
 
-   # create a file called bastion.sh and copy the bastion userdata from project 15 into it
+  # create a file called bastion.sh and copy the bastion userdata from project 15 into it
   user_data = filebase64("${path.module}/bastion.sh")
 }
 
@@ -107,7 +107,7 @@ resource "aws_launch_template" "nginx-launch-template" {
     name = aws_iam_instance_profile.ip.id
   }
 
-  key_name =  var.keypair
+  key_name = var.keypair
 
   placement {
     availability_zone = "random_shuffle.az_list.result"
@@ -121,14 +121,14 @@ resource "aws_launch_template" "nginx-launch-template" {
     resource_type = "instance"
 
     tags = merge(
-    var.tags,
-    {
-      Name = format("%s-nginx-launch-template", var.name)
-    },
-  )
+      var.tags,
+      {
+        Name = format("%s-nginx-launch-template", var.name)
+      },
+    )
   }
- 
-   # create a file called nginx.sh and copy the nginx userdata from project 15 into it
+
+  # create a file called nginx.sh and copy the nginx userdata from project 15 into it
   user_data = filebase64("${path.module}/nginx.sh")
 }
 
@@ -165,5 +165,5 @@ resource "aws_autoscaling_group" "nginx-asg" {
 # attaching autoscaling group of nginx to external load balancer
 resource "aws_autoscaling_attachment" "asg_attachment_nginx" {
   autoscaling_group_name = aws_autoscaling_group.nginx-asg.id
-  lb_target_group_arn   = aws_lb_target_group.nginx-tgt.arn
+  lb_target_group_arn    = aws_lb_target_group.nginx-tgt.arn
 }

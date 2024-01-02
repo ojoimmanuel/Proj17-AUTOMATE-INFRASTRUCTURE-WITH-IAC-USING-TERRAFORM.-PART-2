@@ -3,7 +3,7 @@ resource "aws_db_subnet_group" "emydevops-rds" {
   name       = "emydevops-rds"
   subnet_ids = [aws_subnet.private[2].id, aws_subnet.private[3].id]
 
- tags = merge(
+  tags = merge(
     var.tags,
     {
       Name = "emydevops-rds"
@@ -19,7 +19,7 @@ resource "aws_db_instance" "emydevops-rds" {
   engine                 = "mysql"
   engine_version         = "5.7"
   instance_class         = "db.t2.micro"
-  db_name                   = "emydevopsdb"
+  db_name                = "emydevopsdb"
   username               = var.master-username
   password               = var.master-password
   parameter_group_name   = "default.mysql5.7"

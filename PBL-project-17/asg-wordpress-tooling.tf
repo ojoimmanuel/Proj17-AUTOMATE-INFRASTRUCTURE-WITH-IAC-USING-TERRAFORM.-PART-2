@@ -24,15 +24,15 @@ resource "aws_launch_template" "wordpress-launch-template" {
     resource_type = "instance"
 
     tags = merge(
-    var.tags,
-    {
-      Name = format("%s-wordpress-launch-template", var.name)
-    },
-  )
+      var.tags,
+      {
+        Name = format("%s-wordpress-launch-template", var.name)
+      },
+    )
 
   }
-   
-    # create a file called wordpress.sh and copy the wordpress userdata from project 15 into it.
+
+  # create a file called wordpress.sh and copy the wordpress userdata from project 15 into it.
   user_data = filebase64("${path.module}/wordpress.sh")
 }
 
@@ -68,7 +68,7 @@ resource "aws_autoscaling_group" "wordpress-asg" {
 # attaching autoscaling group of wordpress application to internal loadbalancer
 resource "aws_autoscaling_attachment" "asg_attachment_wordpress" {
   autoscaling_group_name = aws_autoscaling_group.wordpress-asg.id
-  lb_target_group_arn   = aws_lb_target_group.wordpress-tgt.arn
+  lb_target_group_arn    = aws_lb_target_group.wordpress-tgt.arn
 }
 
 
@@ -96,15 +96,15 @@ resource "aws_launch_template" "tooling-launch-template" {
   tag_specifications {
     resource_type = "instance"
 
-  tags = merge(
-    var.tags,
-    {
-      Name = format("%s-tooling-launch-template", var.name)
-    },
-  )
+    tags = merge(
+      var.tags,
+      {
+        Name = format("%s-tooling-launch-template", var.name)
+      },
+    )
 
   }
-  
+
   # create a file called tooling.sh and copy the tooling userdata from project 15 into it
   user_data = filebase64("${path.module}/tooling.sh")
 }
@@ -142,5 +142,5 @@ resource "aws_autoscaling_group" "tooling-asg" {
 # attaching autoscaling group of  tooling application to internal loadbalancer
 resource "aws_autoscaling_attachment" "asg_attachment_tooling" {
   autoscaling_group_name = aws_autoscaling_group.tooling-asg.id
-  lb_target_group_arn   = aws_lb_target_group.tooling-tgt.arn
+  lb_target_group_arn    = aws_lb_target_group.tooling-tgt.arn
 }
